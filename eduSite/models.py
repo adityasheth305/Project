@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):                           #class User is inheri
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    posts=db.relationship('Post', backref='user',lazy=True)
     #role = db.Column()
 
     def __repr__(self):                                                                                                     #https://www.codecademy.com/en/forum_questions/52405de880ff33e27c002c9a
@@ -21,7 +22,7 @@ class User(db.Model, UserMixin):                           #class User is inheri
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    post_title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

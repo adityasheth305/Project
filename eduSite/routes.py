@@ -5,7 +5,7 @@ from flask import render_template, url_for, flash, redirect
 
 from eduSite import app, db   #the app instance of class Flask is created in __init__.py
 
-from eduSite.forms import loginForm, signupForm
+from eduSite.forms import loginForm, signupForm, postForm
 from eduSite.models import User, Post 
       
 from flask_login import login_user, current_user, logout_user, login_required      #https://flask-login.readthedocs.io/en/latest/
@@ -65,3 +65,16 @@ def logout():
 @login_required   #???
 def account():
     return render_template('account.html')
+
+
+@app.route('/newpost', methods=['GET','POST'])
+@login_required
+def newpost():
+    form=postForm()
+    if form.validate_on_submit():
+        post=Post(post_title=form.post_title.data, text_area=form.text_area.data,user=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Post published!')
+        return redirect(url_for('home'))
+    return render_template('newpost.html', post_title= 'New Post', form= form, legend='New Post')

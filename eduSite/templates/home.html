@@ -9,10 +9,11 @@
             {% if current_user.is_authenticated %}
                 <a href="logout"><button>Logout</button></a><br>
                 <a href="account">Your account details</a>
+                <a href="newpost">Create a New Post</a>
             {% else %}
                 <a href="login"><button>Login</button></a><br><br><br>
-                new user?<br>
-                <a href="signup"><button>Sign up</button></a><br>
+                Don't have an account?<br>
+                <a href="signup"><button>Sign Up</button></a><br>
             {% endif %}
         </p>
     </body>
