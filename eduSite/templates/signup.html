@@ -5,6 +5,18 @@
 <body>
   <div>
     <form action="" method = "post">   <!--https://www.w3schools.com/html/html_forms.asp-->
+      {% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <ul>
+               {% for message in messages %}
+               <li>{{ message }}</li>
+               {% endfor %}
+            </ul>
+         {% endif %}
+      {% endwith %}
+      
+      
+      
       <fieldset>
         <legend>Sign up Form</legend>
         {{ form.csrf_token }}
